@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "project2semestrMGolikN2", "project2semestrMGolikN2\project2semestrMGolikN2.vcxproj", "{84E685CF-3332-47BC-BE1C-8E333FF46319}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{84E685CF-3332-47BC-BE1C-8E333FF46319}.Debug|x64.ActiveCfg = Debug|x64
+		{84E685CF-3332-47BC-BE1C-8E333FF46319}.Debug|x64.Build.0 = Debug|x64
+		{84E685CF-3332-47BC-BE1C-8E333FF46319}.Debug|x86.ActiveCfg = Debug|Win32
+		{84E685CF-3332-47BC-BE1C-8E333FF46319}.Debug|x86.Build.0 = Debug|Win32
+		{84E685CF-3332-47BC-BE1C-8E333FF46319}.Release|x64.ActiveCfg = Release|x64
+		{84E685CF-3332-47BC-BE1C-8E333FF46319}.Release|x64.Build.0 = Release|x64
+		{84E685CF-3332-47BC-BE1C-8E333FF46319}.Release|x86.ActiveCfg = Release|Win32
+		{84E685CF-3332-47BC-BE1C-8E333FF46319}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {54755751-65F7-4B80-9EC4-EED20172796A}
+	EndGlobalSection
+EndGlobal

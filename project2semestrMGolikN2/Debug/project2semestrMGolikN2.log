@@ -1,0 +1,4 @@
+﻿  Source.cpp
+C:\Users\max\source\repos\project2semestrMGolikN2\project2semestrMGolikN2\Source.cpp(26,35): warning C4305: инициализация: усечение из "double" в "float"
+C:\Users\max\source\repos\project2semestrMGolikN2\project2semestrMGolikN2\Source.cpp(49,39): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+  project2semestrMGolikN2.vcxproj -> C:\Users\max\source\repos\project2semestrMGolikN2\Debug\project2semestrMGolikN2.exe
