@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "project2semestrMGolikN5", "project2semestrMGolikN5\project2semestrMGolikN5.vcxproj", "{EB2766A0-3BDB-43CD-8266-CE45A78F925A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EB2766A0-3BDB-43CD-8266-CE45A78F925A}.Debug|x64.ActiveCfg = Debug|x64
+		{EB2766A0-3BDB-43CD-8266-CE45A78F925A}.Debug|x64.Build.0 = Debug|x64
+		{EB2766A0-3BDB-43CD-8266-CE45A78F925A}.Debug|x86.ActiveCfg = Debug|Win32
+		{EB2766A0-3BDB-43CD-8266-CE45A78F925A}.Debug|x86.Build.0 = Debug|Win32
+		{EB2766A0-3BDB-43CD-8266-CE45A78F925A}.Release|x64.ActiveCfg = Release|x64
+		{EB2766A0-3BDB-43CD-8266-CE45A78F925A}.Release|x64.Build.0 = Release|x64
+		{EB2766A0-3BDB-43CD-8266-CE45A78F925A}.Release|x86.ActiveCfg = Release|Win32
+		{EB2766A0-3BDB-43CD-8266-CE45A78F925A}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D6A6167F-47FA-40A7-93FA-E2E79787FC5B}
+	EndGlobalSection
+EndGlobal

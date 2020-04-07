@@ -1,0 +1,11 @@
+1, 9, 2, 4, 7, 6, -8, 2, -4, 9, Srednee arifm is: 2.8
+1 is lower than srednee arifm.
+9 is lower than srednee arifm.
+2 is lower than srednee arifm.
+4 is lower than srednee arifm.
+7 is lower than srednee arifm.
+6 is lower than srednee arifm.
+-8 is lower than srednee arifm.
+2 is lower than srednee arifm.
+-4 is lower than srednee arifm.
+9 is lower than srednee arifm.
