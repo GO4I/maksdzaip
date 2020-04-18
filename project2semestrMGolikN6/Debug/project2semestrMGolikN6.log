@@ -1,0 +1,4 @@
+﻿  Source.cpp
+C:\Users\max\source\repos\project2semestrMGolikN6\project2semestrMGolikN6\Source.cpp(18,16): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+C:\Users\max\source\repos\project2semestrMGolikN6\project2semestrMGolikN6\Source.cpp(21,56): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+  project2semestrMGolikN6.vcxproj -> C:\Users\max\source\repos\project2semestrMGolikN6\Debug\project2semestrMGolikN6.exe
