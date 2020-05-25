@@ -1,171 +1,293 @@
-#include "iostream"
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <iomanip>
+#include "locale.h"
 
+#pragma warning(disable : 4996)
 
-/* первое задание*/
-int main() {
+using namespace std;
+const int string_len = 8;
 
-    std::cout << "**----**" << std::endl;
-    std::cout << "***--***" << std::endl;
-    std::cout << "***--***" << std::endl;
-    std::cout << "**-**-**" << std::endl;
-    std::cout << "**-**-**" << std::endl;
+void showTask() {
+	cout << "Обьявить сущности (самолёт и авионика), реализовать запись и чтение данных в текстовом и бинарном файле" << "\t"
+		<< "Посмотреть примеры и проверить работу функции для чтения PDF и BMP файлов." << endl;
+}
+struct Avionics {
+	string serial;
+	int type;
+	int price;
+};
 
-    std::getchar();  // ожидание ввода, чтобы прога
-    std::getchar();  // не закрывалась после выполнения
+struct Plane {
+	string number;
+	int age;
+	float avg_price;
+	Avionics avionics;
+};
 
-    return 0;
+void showPlane(const Plane s) {
+   cout << s.number << "\t"
+		<< s.age << "\t"
+		<< s.avg_price << "\t\t["
+		<< s.avionics.serial << ","
+		<< s.avionics.type << ","
+		<< s.avionics.price << "]" << endl;
+}
 
+void showPlanes(const Plane sts[], const int len) {
+	cout << "number \t"
+		<< "age \t"
+		<< "avg_price \t["
+		<< "serial,"
+		<< "type,"
+		<< "and price]" << endl;
+
+	for (int i = 0; i < len; i++) {
+		showPlane(sts[i]);
+	}
+
+	cout << endl;
+}
+
+void randString(string& str, const int len) {
+	static const char alphabet[] =
+		"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	    "0123456789";
+
+	// очищаем и заносим данные
+	str.clear();
+	str.append(len, ' ');
+
+	for (int i = 0; i < str.length(); i++) {
+		int r = rand() % (sizeof(alphabet) - 1);
+		str[i] = alphabet[r];
+	}
+	str[str.length()] = 0;  // последний символ сообщает о том, что строка закончилась
+}
+
+void initPlanes(Plane sts[], const int len) {
+	for (int i = 0; i < len; i++) {
+		
+		sts[i].age = rand() % 25;
+		sts[i].avg_price = 5.0 * (float)rand() / RAND_MAX;
+		randString(sts[i].number, string_len);
+
+		randString(sts[i].avionics.serial, string_len);
+		sts[i].avionics.type = rand() % 25;
+		sts[i].avionics.price = rand() % 50;
+	}
+}
+
+void writeTextFile(const Plane sts[], const int l) {
+	ofstream f;
+
+	f.open("data.txt");
+	for (int i = 0; i < l; i++)  // Все атрибуты struct  в одной строке
+		f << sts[i].number << " "
+		<< sts[i].age << " "
+		<< sts[i].avg_price << " "
+		<< sts[i].avionics.serial << " "
+		<< sts[i].avionics.type << " "
+		<< sts[i].avionics.price << endl;
+	f.close();
+}
+
+void openTextFile(Plane sts[], const int l) {
+	ifstream f;
+
+	f.open("data.txt");
+	for (int i = 0; i < l; i++)
+		f >> sts[i].number
+		>> sts[i].age
+		>> sts[i].avg_price
+		>> sts[i].avionics.serial
+		>> sts[i].avionics.type
+		>> sts[i].avionics.price;
+	f.close();
 }
 
 
-
-
-/* пятая задача 
-
-int main() {
-    float n1,n2,n3;
-    float num1,num2,num3,num4;
-
-    std::cout << "Number 1: ";
-    std::cin >> n1;
-
-    std::cout << "Number 2: ";
-    std::cin >> n2;
-
-    std::cout << "Number 3: ";
-    std::cin >> n3;
-
-    num1 = (n1*2);
-    num2 = (n1/3);
-    num3 = (n3*n3);
-    num4 = num1+num2+num3;
-
-    std::cout << num1 << "-" << "Number 1" << std::endl;
-    std::cout << num2 << "-" << "Number 2" << std::endl;
-    std::cout << num3 << "-" << "Number 3" << std::endl;
-    std::cout << num4 << "-" << "Summary" << std::endl;
-
-}
-*/
-
-
-/* вторая b задача
-int main() {
-
-    float n1, n2, per, squ;
-
-    std::cout << "First: ";
-    std::cin >> n1;
-
-    std::cout << "Second: ";
-    std::cin >> n2;
-
-    per = 0.5 * (n1 * n2);
-    squ = (n1 * n2);
-
-    std::cout << per << "-" << "Perimetr" << std::endl;
-    std::cout << squ << "-" << "Square" << std::endl;
-
-}
-*/
-
-/* задача 8b
-
-int main() {
-
-    float x,res;
-
-    std::cout << "X: ";
-    std::cin >> x;
-
-    res=abs(x) + (x * 5);
-
-    std::cout << res << "-" << "Result" << std::endl;
+void writeBinFile(Plane sts[], const int l) {
+	// in-function WRITE code
+	fstream f;
+	f.open("data.bin.txt", ios::out | ios::binary);
+	f.write((char*)sts, sizeof(Plane) * l);
+	f.close();
 }
 
-*/
-
-
-/* конвертер 9b
-int main() {
-
-    int x;
-    float x1, x2, x3;
-    
-    std::cout << "Litr-1; Cube-2; Barrel-3,  insert the number you want to use: ";
-    std::cin >> x;
-
-    if (x == 1) {
-
-        std::cout << "Amount: ";
-        std::cin >> x1;
-
-        std::cout << "In cube " << (x1*0.001) << "   " << "In barrel " << (x1 * 0.006) << std::endl;
-
-    }
-    else if (x == 2) {
-
-        std::cout << "Amount: ";
-        std::cin >> x2;
-
-        std::cout << "In barrel " << (x2 * 6.28) << "   " << "In litr " << (x2 * 1000) << std::endl;
-
-    }
-    else if (x == 3) {
-
-        std::cout << "Amount: ";
-        std::cin >> x3;
-
-        std::cout << "In cube " << (x3 * 0.158) << "   " << "In litr " << (x3 * 158.98) << std::endl;
-
-
-    }
-
-    return 0;
+void openBinFile(Plane sts[], const int l) {
+	fstream f;
+	f.open("data.bin.txt", ios::in | ios::binary);
+	f.read((char*)sts, sizeof(Plane) * l);
+	f.close();
 }
-*/
 
-/* 11 задача
-int main() {
+void readPdfHeader(const string fname) {
+	ifstream f;
+	char head[8];
 
-    float n1, n2, n3;
-    float num1, num2, num3;
+	f.open(fname.c_str());
+	if (!f.is_open()) {
+		cout << "Error open: " << fname;
+		f.close();
+		return;
+	}
+	f >> head;
+	f.close();
 
-    std::cout << "Number 1: ";
-    std::cin >> n1;
-
-    std::cout << "Number 2: ";
-    std::cin >> n2;
-
-    std::cout << "Number 3: ";
-    std::cin >> n3;
-
-    if (n1 > n2  && n1 > n3) {
-        n1 = n1 * 5;
-
-    }
-    else if (n2 > n1 && n2 > n3) {
-        n2 = n2 * 5;
-
-
-    }
-    else if (n3 > n1 && n3 > n2) {
-        n3 = n3 * 5;
-    }
-
-    if (n1 < n2&& n1 < n3) {
-        n1 = n1 * 3;
-
-    }
-    else if (n2 < n1&& n2 < n3) {
-        n2 = n2 * 3;
-
-
-    }
-    else if (n3 < n1&& n3 < n2) {
-        n3 = n3 * 3;
-    }
-
-    std::cout << "Number 1: " << n1 << " Number 2: " << n2 << " Number 3: " << n3 << std::endl;
+	cout << "Size of char type is " << sizeof(char) << " byte." << endl;
+	cout << "PDF header is 8 bytes." << endl;
+	cout << "PDF header of \"" << fname << "\" file is: " << head << endl;
 }
-*/
+
+typedef short int WORD;
+typedef unsigned int DWORD;
+typedef int LONG;
+
+#pragma pack(push, 1)  // упаковка памяти, иначе структура будет занимать 16 байт, а не 14, как положено
+struct BITMAPFILEHEADER {
+	WORD    bfType;
+	DWORD   bfSize;
+	WORD    bfReserved1;
+	WORD    bfReserved2;
+	DWORD   bfOffBits;
+};
+#pragma pack(pop)
+
+struct BITMAPINFOHEADER {
+	DWORD  biSize;
+	LONG   biWidth;
+	LONG   biHeight;
+	WORD   biPlanes;
+	WORD   biBitCount;
+	DWORD  biCompression;
+	DWORD  biSizeImage;
+	LONG   biXPelsPerMeter;
+	LONG   biYPelsPerMeter;
+	DWORD  biClrUsed;
+	DWORD  biClrImportant;
+};
+
+void readBmpHeader(string fname) {
+	ifstream f;
+	BITMAPFILEHEADER fHead;
+	BITMAPINFOHEADER imHead;
+
+	f.open(fname);
+	if (!f.is_open()) {
+		cout << "Error open: " << fname << ". (" << strerror(errno) << ")." << endl;
+		f.close();
+		return;
+	}
+	f.read((char*)&fHead, sizeof(fHead));
+	f.read((char*)&imHead, sizeof(imHead));
+	f.close();
+
+	cout << "----------------- BMP file header reader ----------------- \n";
+	cout << fname << endl;
+	cout << "Size of types are (in bytes, / must be):" << endl;
+	cout << "WORD  " << sizeof(WORD) << " /2" << endl;
+	cout << "DWORD " << sizeof(DWORD) << " /4" << endl;
+	cout << "LONG  " << sizeof(LONG) << " /4" << endl;
+	cout << "BITMAPFILEHEADER " << sizeof(BITMAPFILEHEADER) << " /14" << endl;
+	cout << "BITMAPINFOHEADER " << sizeof(BITMAPINFOHEADER) << endl;
+
+	cout << endl;
+
+	cout << "File info: ["
+		<< fHead.bfType << " == 19778, "
+		<< fHead.bfSize << " bytes, "
+		<< fHead.bfReserved1 << ", "
+		<< fHead.bfReserved2 << ", "
+		<< fHead.bfOffBits << "] " << endl;
+
+	cout << "Image info: ["
+		<< imHead.biSize << " bytes, ("
+		<< imHead.biWidth << "x"
+		<< imHead.biHeight << ") px, "
+		<< imHead.biBitCount << " bits] " << endl;
+
+	cout << endl;
+}
+
+
+void readBmpImageHeader(string fname) {
+	ifstream f;
+	BITMAPINFOHEADER imHead;
+
+	f.open(fname);
+	if (!f.is_open()) {
+		cout << "Error open: " << fname << ". (" << strerror(errno) << ")." << endl;
+		f.close();
+		return;
+	}
+
+	cout << "----------------- BMP file Image header reader via seek----------------- \n";
+	cout << fname << endl;
+	cout << "BITMAPFILEHEADER size is 14 bytes" << endl;
+	cout << "BITMAPINFOHEADER " << sizeof(BITMAPINFOHEADER) << endl;
+
+	cout << "Current position in file " << f.tellg() << endl;
+	cout << "Seek 14 bytes" << endl;
+	f.seekg(14);  // смещаемся на 14 байт вперёд
+	cout << "Current position in file " << f.tellg() << endl;
+
+	f.read((char*)&imHead, sizeof(imHead));
+	f.close();
+
+	cout << endl;
+
+	cout << "Image info: ["
+		<< imHead.biSize << " bytes, ("
+		<< imHead.biWidth << "x"
+		<< imHead.biHeight << ") px, "
+		<< imHead.biBitCount << " bits] " << endl;
+
+	cout << endl;
+}
+
+int main()
+{
+	// init
+	cout.precision(5);
+	srand(5);
+	setlocale(LC_ALL, "Russian");
+
+	const int len = 20;
+	Plane planes[len];
+
+	showTask();
+
+	cout << endl;
+
+	cout << "Начальный массив:\n";
+	initPlanes(planes, len);
+	writeTextFile(planes, len);
+	showPlanes(planes, 5);
+
+	cout << "Новый массив:\n";
+	initPlanes(planes, len);
+	showPlanes(planes, 5);
+
+	cout << "Считанный массив:\n";
+	openTextFile(planes, len);
+	showPlanes(planes, 5);
+
+	cout << "Бинарный файл.\n";
+	writeBinFile(planes, len);
+
+	cout << "Новый массив:\n";
+	initPlanes(planes, len);
+	showPlanes(planes, 5);
+
+	cout << "Считанный массив:\n";
+	openBinFile(planes, len);
+	showPlanes(planes, 5);
+
+	readPdfHeader("file.pdf");
+
+	readBmpHeader("microsoft.bmp");
+
+	return 0;
+}
