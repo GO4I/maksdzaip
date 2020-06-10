@@ -1,145 +1,223 @@
 #include <iostream>
-#include <string>
-#include <fstream>
 #include <iomanip>
-#include "locale.h"
-
-#pragma warning(disable : 4996)
+#include <math.h>
+#include <cmath>
+#include <string.h>
+#include "time.h"
+#include "fstream"
 
 using namespace std;
-const int string_len = 8;
 
-void showTask() {
-	cout << "Считать ID3v1 из MP3 файлов." << "\t"
-		<< "Реализовать чтение форматов: ZIP: Local File Header" << endl;
+void TaskTwo() {
+
+    cout << "Задача 2. Умножить каждый элемент матрицы на второй элемент в строке." << endl;
+    const int n = 4;
+    const int m = 4;
+    int mat[n][m];
+    int k = 0;
+
+    srand(time(NULL));
+    for (int i = 0; i < n; i++)    
+        for (int j = 0; j < m; j++)
+            mat[i][j] = rand() % 28 - 13;
+
+    for (int i = 0; i < n; i++)   
+    {
+        for (int j = 0; j < m; j++)
+            cout << mat[i][j] << " \t";
+        cout << endl;
+    }
+
+    cout << endl;
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++)
+            cout << mat[i][j] * mat[i][1] << "\t";
+        cout << endl;
+    }
+    
+
 }
 
-void readMp3Header(const string fname) {
-	ifstream f;
+void TaskFour() {
 
-	f.open(fname);
-	if (!f.is_open()) {
-		cout << "Error open: " << fname << ". (" << strerror(errno) << ")." << endl;
-		f.close();
-		return;
-	}
+    cout << "Задача 4. В квадратной матрице найти сумму положительных элементов, лежащих на и выше главной диагонали и расположенных в чётных столбцах." << endl;
 
-	unsigned char b2[2];
-	unsigned char b3;
-	unsigned char b4;
+    const int n = 4;
+    const int m = 4;
+    int mat[n][m];
+    int k = 0;
 
-	cout << "----------------- Read First MP3 Header in file without ID3v2----------------- \n";
-	f.read((char*)b2, sizeof(b2));
-	f.read((char*)&b3, sizeof(char));
-	f.read((char*)&b4, sizeof(char));
-	f.close();
+    srand(time(NULL));
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < m; j++)
+            mat[i][j] = rand() % 28 - 13;
 
-	cout << fname << endl << "Signature: " << hex << showbase << endl
-		<< (int)b2[0] << endl
-		<< (int)b2[1] << endl
-		<< (int)b3 << endl
-		<< (int)b4 << endl;
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+            cout << mat[i][j] << " \t";
+        cout << endl;
+    }
 
-	cout << endl;
+    int count = 0;
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < i + 1; j++) {
+            if (mat[i][1] > 0)
+                count += mat[i][1];
+            if (mat[i][3] > 0)
+                count += mat[i][3];
+        }
+           
+    cout << "Сумма элементов: " <<  count << endl;
+
 }
 
-void readZipHeader(string fname) {
-	ifstream f;
+void TaskSeven() {
 
-	f.open(fname);
-	if (!f.is_open()) {
-		cout << "Error open: " << fname << ". (" << strerror(errno) << ")." << endl;
-		f.close();
-		return;
-	}
+    cout << "Задача 7. Дана матрица. Элементы первой строки — количество осадков в соответствующий день, второй строки — сила ветра в этот день. Найти, был ли в эти дни ураган? (ураган — когда самый сильный ветер был в самый дождливый день)." << endl;
 
-	  #pragma pack(push, 1)  // упаковка памяти, иначе структура будет занимать 16 байт, а не 14, как положено
-	struct ZIPLOCALFILEHEADER {
-		unsigned int sign;
-		short int version;
-		short int flag;
-		short int comp;
-		short int lastTime;
-		short int lastDate;
-		unsigned int crc;
-		unsigned int sizec;
-		unsigned int sized;
-		short int lenName;
-		short int lenEf;
-		     char * fName;
-		     char * ef;
-	};
-	   #pragma pack(pop)
+    const int n = 4;
+    const int m = 4;
+    int mat[n][m];
+    int thunderone[m];
+    int thundertwo[m];
+    int k = 0;
 
-	ZIPLOCALFILEHEADER lfh;
+    srand(time(NULL));
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < m; j++)
+            mat[i][j] = rand() % 28;
 
-	cout << "----------------- Read ZIP ----------------- \n";
-	f.read((char*)&lfh, sizeof(ZIPLOCALFILEHEADER));
-	f.close();
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+            cout << mat[i][j] << " \t";
+        cout << endl;
+    }
 
-	unsigned short int ud = lfh.lastDate;
-	unsigned short int ut = lfh.lastTime;
+    
+    int rain = 0;
+    int rainprov = 0;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < i + 1; j++) {
+            for (int j = 0; j < i + 1; j++) {
+                if (mat[i][0] > rain) {
+                    rain = mat[i][0];
+                    thunderone[j] = mat[i][0];
+                }
+                if (mat[i][2] > rain) {
+                    rain = mat[i][2];
+                    thunderone[j] = mat[i][2];
+                    thunderone[j] = rainprov;
+                }
+            }
+        }
+    }
 
-	cout << fname << endl;
-	cout << "Local File Header: " << endl << dec
-		<< "sign     " << (unsigned int)lfh.sign << endl //<< dec
-		<< "version  " << (short int)lfh.version << endl
-		<< "flag     " << (short int)lfh.flag << endl
-		<< "comp     " << (unsigned short int) lfh.comp << endl
-		<< "lastTime " << (unsigned short int) lfh.lastTime
-		<< " (" << ((ut & 0xF800) >> 11) << ":"
-		<< ((((ut) & 0x7E0) >> 6)) << ":"
-		<< 2 * (ut & 0x1f) << ")" << endl
-		<< "lastDate " << (unsigned short int) lfh.lastDate
-		<< " (" << (ud & 0b11111) << "/"
-		<< ((((ud) & 0x1E0) / 0x20)) << "/"
-		<< (((ud & 0x0FE00) / 0x0200) + 1980) << ")" << endl
-		<< "crc      " << (unsigned int)lfh.crc << endl
-		<< "sizec    " << (unsigned int)lfh.sizec << endl
-		<< "sized    " << (unsigned int)lfh.sized << endl
-		<< "lenName  " << (short int)lfh.lenName << endl
-		<< "lenEf    " << (short int)lfh.lenEf << endl;
+    int wind = 0;
+    int windprov = 0;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < i + 1; j++) {
+            for (int j = 0; j < i + 1; j++) {
+                if (mat[i][1] > wind) {
+                    wind = mat[i][1];
+                    thundertwo[j] = mat[i][1];
+                    thundertwo[j] = windprov;
+                }
+                if (mat[i][3] > wind) {
+                    wind = mat[i][3];
+                    thundertwo[j] = mat[i][3];
+                    thundertwo[j] = windprov;
+                }
+            }
 
-	cout << endl;
+        }
+    }
+    cout << "Ветер- " << wind << " Осадки- " << rain << endl;
+    if (windprov = rainprov) {
+        cout << "Шторм был" << endl;
+    }
+    else {
+        cout << "Шторма не было" << endl;
+    }
+
+}
+ 
+void TaskNineB() {
+    cout << "Задача 9b. Объявить, реализовать заполнение данными с клавиатуры ИЛИ из файла и вывести на экран матрицу, описывающую следующие сущности. Предложите свой вариант." << endl;
+    cout << "Состояние робота на шахматной доске. Робот характеризуется уровнем заряда, скоростью движения." << endl;
+
+    ifstream in("input.txt");
+
+    if (in.is_open())
+    {
+        int count = 0;
+        int temp;
+
+        while (!in.eof())
+        {
+            in >> temp;
+            count++;
+        }
+
+        in.seekg(0, ios::beg);
+        in.clear();
+
+        int count_space = 0;
+        char symbol;
+        while (!in.eof())
+        {
+            in.get(symbol);
+            if (symbol == ' ') count_space++;
+            if (symbol == '\n') break;
+        }
+        
+        in.seekg(0, ios::beg);
+        in.clear();
+
+        int n = count / (count_space + 1);
+        int m = count_space + 1;
+        double** x;
+        x = new double* [n];
+        for (int i = 0; i < n; i++) x[i] = new double[m];
+
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < m; j++)
+                in >> x[i][j];
+
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < m; j++)
+                cout << x[i][j] << "\t";
+            cout << "\n";
+        }
+
+        for (int i = 0; i < n; i++) delete[] x[i];
+        delete[] x;
+
+        in.close();
+    }
+    else
+    {
+        cout << "Файл не найден.";
+    }
 }
 
-void readMp3Id3v1(const string fname) {
-	ifstream f;
+int main() {
 
-	f.open(fname);
-	if (!f.is_open()) {
-		cout << "Error open: " << fname << ". (" << strerror(errno) << ")." << endl;
-		f.close();
-		return;
-	}
-	// будет дописанн
-	cout << "----------------- Read First MP3 Header in file without ID3v2----------------- \n";
+    setlocale(LC_ALL, "Russian");
 
-	f.close();
+    cout << "Голик Максим УТС/б-19-1-о" << endl;
+    cout << endl;
 
-	cout << endl;
-}
+    TaskTwo();
+    cout << endl;
+    TaskFour();
+    cout << endl;
+    TaskSeven();
+    cout << endl;
+    TaskNineB();
 
-int main()
-{
-	// init
-	cout.precision(5);
-	srand(5);
-	setlocale(LC_ALL, "Russian");
-	
-	showTask();
-	cout << endl;
-
-	readMp3Header("1.mp3");
-	readMp3Header("2.mp3");
-	readMp3Header("3.mp3");
-	readMp3Id3v1("1.mp3");
-	readMp3Id3v1("2.mp3");
-	readMp3Id3v1("3.mp3");
-
-	readZipHeader("files.zip");
-	readZipHeader("ezyzip.zip");
-	readZipHeader("tennis.zip");
-
-	return 0;
+    return 0;
 }
